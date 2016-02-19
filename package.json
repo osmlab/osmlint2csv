@@ -1,0 +1,25 @@
+{
+  "name": "osmlint2csv",
+  "version": "1.0.0",
+  "description": "convert [osmlint](https://github.com/osmlab/osmlint) output geojson file to csv file for upload in to [To-Fix](https://github.com/osmlab/to-fix)",
+  "main": "overlapHighways.js",
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "turf": "^2.0.2",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rub21/osmlint2csv.git"
+  },
+  "author": "Ruben Lopez M <ruben@mapbox.com> (http://rub21.github.io/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rub21/osmlint2csv/issues"
+  },
+  "homepage": "https://github.com/Rub21/osmlint2csv#readme"
+}
