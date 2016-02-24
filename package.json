@@ -2,7 +2,10 @@
   "name": "osmlint2csv",
   "version": "1.0.0",
   "description": "convert [osmlint](https://github.com/osmlab/osmlint) output geojson file to csv file for upload in to [To-Fix](https://github.com/osmlab/to-fix)",
-  "main": "overlapHighways.js",
+  "main": "index.js",
+  "bin": {
+    "osmlint2csv": "index.js"
+  },
   "dependencies": {
     "minimist": "^1.2.0",
     "turf": "^2.0.2",

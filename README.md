@@ -5,6 +5,10 @@ convert [osmlint](https://github.com/osmlab/osmlint) output geojson file to csv 
 
 #### Overlap Highways
 
-`node overlapHighways.js --file us.geojson`
+` osmlint2csv --v=nodeendingnearhighway peru.geojson peru.csv`
 
-*output:* `us.csv`
+*output:* 
+```
+output : peru-minor.csv ,Format: https://github.com/osmlab/to-fix/wiki/Task-sources#unconnected-minor
+output : peru-major.csv ,Format https://github.com/osmlab/to-fix/wiki/Task-sources#unconnected-minor
+```
