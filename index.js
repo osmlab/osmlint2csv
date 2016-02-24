@@ -5,7 +5,7 @@ var fs = require('fs');
 var argv = require('minimist')(process.argv.slice(2));
 var path = require('path');
 var usage = function() {
-  console.log('Usage: osmlint2csv <validator> --<options>');
+  console.log('Usage: osmlint2csv --<options> <arguments ...>');
   console.log('  Example: osmlint2csv --v=nodeendingnearhighway peru.geojson peru.csv');
 };
 (function() {
