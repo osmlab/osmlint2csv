@@ -1,32 +1,49 @@
 'use strict';
 var fs = require('fs');
-var minor = [];
-var major = [];
+var majorRoads = [];
 
+var minorRoads = [];
+var pathRoads = [];
+var coordinates = {};
 module.exports = function(iFile, oFile) {
   var geojson = JSON.parse(fs.readFileSync(iFile, 'utf8'));
   var header = 'way_id,st_astext';
-  minor.push(header);
-  major.push(header);
-  geojson.features.map(function(v) {
-    if (v.geometry.type == 'Point') {
-      if (v.properties.type === 'minor') {
-        var minorRaw = v.properties.wayA + ',' + 'POINT(' + v.geometry.coordinates.join(' ') + ')';
-        minor.push(minorRaw);
-      } else {
-        var majorRaw = v.properties.wayA + ',' + 'POINT(' + v.geometry.coordinates.join(' ') + ')';
-        major.push(majorRaw);
+  majorRoads.push(header);
+  minorRoads.push(header);
+  pathRoads.push(header);
+  geojson.features.map(function(val) {
+    if (coordinates[val.geometry.coordinates.join(',')] === undefined) {
+      if (val.geometry.type == 'Point') {
+        if (val.properties.type === 'major') {
+          var majorRaw = val.properties.wayA + ',' + 'POINT(' + val.geometry.coordinates.join(' ') + ')';
+          majorRoads.push(majorRaw);
+        } else if (val.properties.type === 'minor') {
+          var minorRaw = val.properties.wayA + ',' + 'POINT(' + val.geometry.coordinates.join(' ') + ')';
+          minorRoads.push(minorRaw);
+        } else if (val.properties.type === 'path') {
+          var pathRaw = val.properties.wayA + ',' + 'POINT(' + val.geometry.coordinates.join(' ') + ')';
+          pathRoads.push(pathRaw);
+        }
       }
+      coordinates[val.geometry.coordinates.join(',')] = val.geometry.coordinates.join(',');
     }
   });
-  var fileMinor = oFile.split('.')[0] + '-minor.csv';
-  fs.writeFile(fileMinor, minor.join('\n'), function(err) {
+
+  var fileMajor = oFile.split('.')[0] + '-majorRoads.csv';
+  fs.writeFile(fileMajor, majorRoads.join('\n'), function(err) {
+    if (err) return err;
+    console.log('output :', fileMajor, ',Format https://github.com/osmlab/to-fix/wiki/Task-sources#unconnected-minor');
+  });
+
+  var fileMinor = oFile.split('.')[0] + '-minorRoads.csv';
+  fs.writeFile(fileMinor, minorRoads.join('\n'), function(err) {
     if (err) return err;
     console.log('output :', fileMinor, ',Format: https://github.com/osmlab/to-fix/wiki/Task-sources#unconnected-minor');
   });
-  var fileMajor = oFile.split('.')[0] + '-major.csv';
-  fs.writeFile(fileMajor, major.join('\n'), function(err) {
+
+  var filePath = oFile.split('.')[0] + '-pathRoads.csv';
+  fs.writeFile(filePath, pathRoads.join('\n'), function(err) {
     if (err) return err;
-    console.log('output :', fileMajor, ',Format https://github.com/osmlab/to-fix/wiki/Task-sources#unconnected-minor');
+    console.log('output :', filePath, ',Format https://github.com/osmlab/to-fix/wiki/Task-sources#unconnected-minor');
   });
 };
