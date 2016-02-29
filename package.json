@@ -1,7 +1,7 @@
 {
   "name": "osmlint2csv",
   "version": "1.0.0",
-  "description": "convert [osmlint](https://github.com/osmlab/osmlint) output geojson file to csv file for upload in to [To-Fix](https://github.com/osmlab/to-fix)",
+  "description": "Convert [osmlint](https://github.com/osmlab/osmlint) output geojson file to csv file for uploading in to [To-Fix](https://github.com/osmlab/to-fix)",
   "main": "index.js",
   "bin": {
     "osmlint2csv": "index.js"
@@ -17,12 +17,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rub21/osmlint2csv.git"
+    "url": "git+https://github.com/osmlab/osmlint2csv.git"
   },
   "author": "Ruben Lopez M <ruben@mapbox.com> (http://rub21.github.io/)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Rub21/osmlint2csv/issues"
+    "url": "https://github.com/osmlab/osmlint2csv/issues"
   },
-  "homepage": "https://github.com/Rub21/osmlint2csv#readme"
+  "homepage": "https://github.com/osmlab/osmlint2csv#readme"
 }

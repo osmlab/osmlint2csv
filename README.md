@@ -2,7 +2,17 @@
 
 Convert [osmlint](https://github.com/osmlab/osmlint) output geojson file to csv file for uploading in to [To-Fix](https://github.com/osmlab/to-fix). This repository contain script that help convert osmlint output files to csv files readable to-fix.
 
-#### Node Ending Near highway
+## Installation
+
+```sh
+git clone https://github.com/osmlab/osmlint2csv.git
+cd osmlint2csv/
+npm install & npm link
+```
+
+## Usage
+
+### Node Ending Near highway
 
 `osmlint2csv --v=nodeendingnearhighway osmlintOutout.geojson peru.csv`
 
@@ -13,7 +23,7 @@ output : peru-minorRoads.csv ,Format: https://github.com/osmlab/to-fix/wiki/Task
 output : peru-pathRoads.csv ,Format https://github.com/osmlab/to-fix/wiki/Task-sources#unconnected-minor
 ```
 
-#### Overlap Highways
+### Overlap Highways
 
 ` osmlint2csv --v=nodeendingnearhighway osmlintOutout.geojson peru.csv`
 
