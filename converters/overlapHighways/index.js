@@ -2,38 +2,36 @@
 var fs = require('fs');
 var _ = require('underscore');
 var result = {};
-module.exports = function(iFile, oFile) {
-  var geojson = JSON.parse(fs.readFileSync(iFile, 'utf8'));
-  geojson.features.map(function(v) {
-    if (v.geometry.type == 'Point') {
-      var id = v.properties.wayA + '-' + v.properties.wayB;
+module.exports = function(inoputFile, done) {
+  var geojson = JSON.parse(fs.readFileSync(inoputFile, 'utf8'));
+  geojson.features.map(function(val) {
+    if (val.geometry.type == 'Point') {
+      var id = val.properties.fromWay + '-' + val.properties.toWay;
       if (!result[id]) {
-        result[id] = [v.geometry.coordinates];
+        result[id] = [val.geometry.coordinates];
       } else {
-        result[id].push(v.geometry.coordinates);
+        result[id].push(val.geometry.coordinates);
       }
     }
   });
-  var csv = '"geom"\n';
-  _.each(result, function(v) {
+  var header = '"geom"';
+  var data = [];
+  data.push(header);
+  _.each(result, function(val) {
     var row = '';
-    if (v.length > 1) {
+    if (val.length > 1) {
       row = 'MULTIPOINT(';
-      for (var i = 0; i < v.length; i++) {
-        if ((v.length - 1) == i) {
-          row += v[i].join(' ');
+      for (var i = 0; i < val.length; i++) {
+        if ((val.length - 1) == i) {
+          row += val[i].join(' ');
         } else {
-          row += v[i].join(' ') + ',';
+          row += val[i].join(' ') + ',';
         }
       }
     } else {
-      row += 'POINT(' + v[0].join(' ');
+      row += 'POINT(' + val[0].join(' ');
     }
-    row = '"' + row + ')"\n';
-    csv += row;
+    data.push('"' + row + ')"');
   });
-  fs.writeFile(oFile, csv, function(err) {
-    if (err) return err;
-    console.log('output :', oFile, ',Format : https://github.com/osmlab/to-fix/wiki/Task-sources#krakatoa');
-  });
+  done(data);
 };
