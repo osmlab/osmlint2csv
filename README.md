@@ -9,23 +9,25 @@ git clone https://github.com/osmlab/osmlint2csv.git
 cd osmlint2csv/
 npm install & npm link
 ```
+## Test
+
+```sh
+npm test
+```
 
 ## Usage
 
 ### Node Ending Near highway
 
-`osmlint2csv --v=nodeendingnearhighway osmlintOutout.geojson peru.csv`
-
-*output:* 
 ```
-output : peru-majorRoads.csv ,Format https://github.com/osmlab/to-fix/wiki/Task-sources#unconnected-minor
-output : peru-minorRoads.csv ,Format: https://github.com/osmlab/to-fix/wiki/Task-sources#unconnected-minor
-output : peru-pathRoads.csv ,Format https://github.com/osmlab/to-fix/wiki/Task-sources#unconnected-minor
+osmlint2csv --conv=nodeendingnearhighway --type=major osmlintOutputFile.geojson > majorRoads.csv
+osmlint2csv --conv=nodeendingnearhighway --type=minor osmlintOutputFile.geojson > minorRoads.csv
+osmlint2csv --conv=nodeendingnearhighway --type=path osmlintOutputFile.geojson > pathRoads.csv
 ```
 
 ### Overlap Highways
 
-` osmlint2csv --v=nodeendingnearhighway osmlintOutout.geojson peru.csv`
+`osmlint2csv --v=nodeendingnearhighway osmlintOutputFile.geojson peru.csv`
 
 ```
 output : peru.csv ,Format: https://github.com/osmlab/to-fix/wiki/Task-sources#krakatoa
