@@ -6,7 +6,7 @@ module.exports = function(inoputFile, done) {
   var geojson = JSON.parse(fs.readFileSync(inoputFile, 'utf8'));
   geojson.features.map(function(val) {
     if (val.geometry.type == 'Point') {
-      var id = val.properties.wayA + '-' + val.properties.wayB;
+      var id = val.properties.fromWay + '-' + val.properties.toWay;
       if (!result[id]) {
         result[id] = [val.geometry.coordinates];
       } else {
@@ -14,8 +14,9 @@ module.exports = function(inoputFile, done) {
       }
     }
   });
-  var header = '"geom"\n';
+  var header = '"geom"';
   var data = [];
+  data.push(header);
   _.each(result, function(val) {
     var row = '';
     if (val.length > 1) {
@@ -31,13 +32,6 @@ module.exports = function(inoputFile, done) {
       row += 'POINT(' + val[0].join(' ');
     }
     data.push('"' + row + ')"');
-    // csv += row;
   });
-
   done(data);
-
-  // fs.writeFile(oFile, csv, function(err) {
-  //   if (err) return err;
-  //   console.log('output :', oFile, ',Format : https://github.com/osmlab/to-fix/wiki/Task-sources#krakatoa');
-  // });
 };

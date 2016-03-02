@@ -30,15 +30,10 @@ tape('Generator CSV file unonnected path', function(assert) {
   });
 });
 
-
 //Overlap highways
-
-
-tape('Generator CSV file unonnected major', function(assert) {
+tape('Generator CSV file Overlaphighways', function(assert) {
   convert.overlaphighways(overlaphighwaysGeojson, function(data) {
-
-    console.log(data);
-   // assert.equal(data[1], '370656776,POINT(-79.13154423236847 -7.876900342303941)', 'ok');
+    assert.equal(data[3], '"POINT(-79.13154423236847 -7.876900342303941)"', 'ok');
     assert.end();
   });
 });
