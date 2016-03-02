@@ -26,5 +26,9 @@ var usage = function() {
     validator(argv._[0], argv.type, function(data) {
       console.log(data.join('\n'));
     });
+  } else {
+    validator(argv._[0], function(data) {
+      console.log(data.join('\n'));
+    });
   }
 })();

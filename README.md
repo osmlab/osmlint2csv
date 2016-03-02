@@ -27,7 +27,7 @@ osmlint2csv --conv=nodeendingnearhighway --type=path osmlintOutputFile.geojson >
 
 ### Overlap Highways
 
-`osmlint2csv --v=nodeendingnearhighway osmlintOutputFile.geojson > overlaps.csv`
+`osmlint2csv --conv=overlaphighways osmlintOutputFile.geojson > overlaps.csv`
 
 ```
 output : peru.csv ,Format: https://github.com/osmlab/to-fix/wiki/Task-sources#krakatoa
