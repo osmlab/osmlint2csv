@@ -30,6 +30,5 @@ module.exports = function(inputFile, type, done) {
     }
   }).on('close', function() {
     done();
-    //process.exit(0);
   });
 };
