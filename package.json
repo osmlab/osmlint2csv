@@ -7,9 +7,7 @@
     "osmlint2csv": "cli.js"
   },
   "dependencies": {
-    "geojson-stream": "0.0.1",
     "minimist": "^1.2.0",
-    "turf": "^2.0.2",
     "underscore": "^1.8.3"
   },
   "devDependencies": {

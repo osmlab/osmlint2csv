@@ -2,8 +2,6 @@
 var fs = require('fs');
 var readline = require('readline');
 
-
-
 module.exports = function(inputFile, type, done) {
   var rd = readline.createInterface({
     input: fs.createReadStream(inputFile),
@@ -11,8 +9,8 @@ module.exports = function(inputFile, type, done) {
     terminal: false
   });
   var header = 'way_id,st_astext';
+  //Print CSV header
   console.log(header);
-
   rd.on('line', function(line) {
     var obj = JSON.parse(line);
     var features = obj.features;
@@ -24,16 +22,14 @@ module.exports = function(inputFile, type, done) {
         if (val.geometry.type == 'Point') {
           if (val.properties.type === type) {
             var raw = val.properties.fromWay + ',' + 'POINT(' + val.geometry.coordinates.join(' ') + ')';
-            data.push(raw);
+            console.log(raw);
           }
         }
         coordinates[val.geometry.coordinates.join(',')] = val.geometry.coordinates.join(',');
       }
     }
-    if (data.length > 0) {
-      console.log(data.join('\n'));
-    }
   }).on('close', function() {
-    process.exit(0);
+    done();
+    //process.exit(0);
   });
 };
