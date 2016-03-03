@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 'use strict';
+
 var fs = require('fs');
 var argv = require('minimist')(process.argv.slice(2));
 var path = require('path');
