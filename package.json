@@ -1,6 +1,6 @@
 {
   "name": "osmlint2csv",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Convert [osmlint](https://github.com/osmlab/osmlint) output geojson file to csv file for uploading in to [To-Fix](https://github.com/osmlab/to-fix)",
   "main": "index.js",
   "bin": {
