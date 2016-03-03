@@ -23,12 +23,8 @@ var usage = function() {
     return usage();
   }
   if (argv.conv === 'nodeendingnearhighway') {
-    validator(argv._[0], argv.type, function(data) {
-      console.log(data.join('\n'));
-    });
+    validator(argv._[0], argv.type, function() {});
   } else {
-    validator(argv._[0], function(data) {
-      console.log(data.join('\n'));
-    });
+    validator(argv._[0], function() {});
   }
 })();
