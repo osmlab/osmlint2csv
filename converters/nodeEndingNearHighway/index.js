@@ -21,8 +21,8 @@ module.exports = function(inputFile, type, done) {
       var val = features[i];
       if (coordinates[val.geometry.coordinates.join(',')] === undefined) {
         if (val.geometry.type == 'Point') {
-          if (val.properties.type === type) {
-            var row = val.properties.fromWay + ',' + 'POINT(' + val.geometry.coordinates.join(' ') + ')';
+          if (val.properties._type === type) {
+            var row = val.properties._fromWay + ',' + 'POINT(' + val.geometry.coordinates.join(' ') + ')';
             console.log(row);
           }
         }
