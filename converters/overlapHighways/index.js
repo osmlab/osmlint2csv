@@ -4,7 +4,7 @@ var fs = require('fs');
 var _ = require('underscore');
 var readline = require('readline');
 
-module.exports = function(inputFile, done) {
+module.exports = function(inputFile, type, done) {
   var rd = readline.createInterface({
     input: fs.createReadStream(inputFile),
     output: process.stdout,
@@ -19,8 +19,8 @@ module.exports = function(inputFile, done) {
     var features = obj.features;
     for (var i = 0; i < features.length; i++) {
       var val = features[i];
-      if (val.geometry.type == 'Point') {
-        var id = val.properties.fromWay + '-' + val.properties.toWay;
+      if (val.geometry.type == 'Point' && val.properties._type === type) {
+        var id = val.properties._fromWay + ',' + val.properties._toWay;
         if (!result[id]) {
           result[id] = [val.geometry.coordinates];
         } else {
@@ -28,7 +28,7 @@ module.exports = function(inputFile, done) {
         }
       }
     }
-    _.each(result, function(val) {
+    _.each(result, function(val, key) {
       var row;
       if (val.length > 1) {
         row = 'MULTIPOINT(';
@@ -39,11 +39,11 @@ module.exports = function(inputFile, done) {
             row += val[i].join(' ') + ',';
           }
         }
-        row = '"' + row + '"';
+        row = '"' + row + ')"';
         console.log(row);
       } else {
         row = 'POINT(' + val[0].join(' ');
-        row = '"' + row + '"';
+        row = '"' + row + ')"';
         console.log(row);
       }
     });
