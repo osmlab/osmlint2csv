@@ -9,7 +9,7 @@ module.exports = function(inputFile, type, done) {
     output: process.stdout,
     terminal: false
   });
-  var header = 'way_id,st_astext';
+  var header = '"geom"';
   //Print CSV header
   console.log(header);
   rd.on('line', function(line) {
@@ -22,8 +22,8 @@ module.exports = function(inputFile, type, done) {
       if (coordinates[val.geometry.coordinates.join(',')] === undefined) {
         if (val.geometry.type == 'Point') {
           if (val.properties._type === type) {
-            var row = val.properties._fromWay + ',' + 'POINT(' + val.geometry.coordinates.join(' ') + ')';
-            console.log(row);
+            var row = 'POINT(' + val.geometry.coordinates.join(' ') + ')';
+            console.log('"' + row + '"');
           }
         }
         coordinates[val.geometry.coordinates.join(',')] = val.geometry.coordinates.join(',');
