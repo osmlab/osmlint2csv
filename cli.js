@@ -23,9 +23,6 @@ var usage = function() {
     console.error('Unknown validator "' + argv._[0] + '"');
     return usage();
   }
-  if (argv.conv === 'nodeendingnearhighway' || argv.conv === 'crossinghighways' || argv.conv === 'overlaphighways') {
-    validator(argv._[0], argv.type, function() {});
-  } else {
-    validator(argv._[0], function() {});
-  }
+  validator(argv._[0], argv.type, function() {});
+
 })();
