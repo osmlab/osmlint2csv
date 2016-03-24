@@ -10,43 +10,26 @@ module.exports = function(inputFile, type, done) {
     output: process.stdout,
     terminal: false
   });
-  var header = '"geom"';
+  var header = 'way,geom';
   //Print CSV header
   console.log(header);
   rd.on('line', function(line) {
     var obj = JSON.parse(line);
     var result = {};
     var features = obj.features;
+    var coordinates = {};
     for (var i = 0; i < features.length; i++) {
       var val = features[i];
-      if (val.geometry.type == 'Point' && val.properties._type === type) {
-        var id = val.properties._fromWay + '-' + val.properties._toWay;
-        if (!result[id]) {
-          result[id] = [val.geometry.coordinates];
-        } else {
-          result[id].push(val.geometry.coordinates);
-        }
-      }
-    }
-    _.each(result, function(val) {
-      var row;
-      if (val.length > 1) {
-        row = 'MULTIPOINT(';
-        for (var i = 0; i < val.length; i++) {
-          if ((val.length - 1) == i) {
-            row += val[i].join(' ');
-          } else {
-            row += val[i].join(' ') + ',';
+      if (coordinates[val.geometry.coordinates.join(',')] === undefined) {
+        if (val.geometry.type == 'Point') {
+          if (val.properties._type === type) {
+            var row = val.properties._fromWay + ',POINT(' + val.geometry.coordinates.join(' ') + ')';
+            console.log(row);
           }
         }
-        row = '"' + row + '"';
-        console.log(row);
-      } else {
-        row = 'POINT(' + val[0].join(' ') + ')';
-        row = '"' + row + '"';
-        console.log(row);
+        coordinates[val.geometry.coordinates.join(',')] = val.geometry.coordinates.join(',');
       }
-    });
+    }
   }).on('close', function() {
     done();
   });
