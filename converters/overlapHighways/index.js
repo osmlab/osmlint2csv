@@ -10,7 +10,7 @@ module.exports = function(inputFile, type, done) {
     output: process.stdout,
     terminal: false
   });
-  var header = '"geom"';
+  var header = 'way,geom';
   //Print CSV header
   console.log(header);
   rd.on('line', function(line) {
@@ -39,11 +39,11 @@ module.exports = function(inputFile, type, done) {
             row += val[i].join(' ') + ',';
           }
         }
-        row = '"' + row + ')"';
+        row = key.split(',')[0] + ',"' + row + ')"';
         console.log(row);
       } else {
         row = 'POINT(' + val[0].join(' ');
-        row = '"' + row + ')"';
+        row = key.split(',')[0] + ',"' + row + ')"';
         console.log(row);
       }
     });

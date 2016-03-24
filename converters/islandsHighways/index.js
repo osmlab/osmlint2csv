@@ -10,7 +10,7 @@ module.exports = function(inputFile, type, done) {
     output: process.stdout,
     terminal: false
   });
-  var header = '"geom"';
+  var header = 'way,geom';
   //Print CSV header
   console.log(header);
   rd.on('line', function(line) {
@@ -26,7 +26,7 @@ module.exports = function(inputFile, type, done) {
           row.push(coors[j].join(' '));
         }
         row = 'LINESTRING (' + row.join(',') + ')';
-        row = '"' + row + '"';
+        row = val.properties._osm_way_id + ',"' + row + '"';
         console.log(row);
       }
     }

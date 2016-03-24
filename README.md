@@ -17,19 +17,26 @@ npm test
 
 ## Usage
 
-### Node Ending Near highway
+### Unconnected Highways
 
 ```
-osmlint2csv --conv=nodeendingnearhighway --type=major osmlintOutputFile.geojson > majorRoads.csv
-osmlint2csv --conv=nodeendingnearhighway --type=minor osmlintOutputFile.geojson > minorRoads.csv
-osmlint2csv --conv=nodeendingnearhighway --type=path osmlintOutputFile.geojson > pathRoads.csv
+osmlint2csv --conv=unconnectedhighways --type=major unconnectedhighways.tofix.json > unconnected-highways-major.csv
+
 ```
 
 ### Overlap Highways
 
-`osmlint2csv --conv=overlaphighways osmlintOutputFile.geojson > overlaps.csv`
+```
+osmlint2csv --conv=overlaphighways --type=major-major overlaphighways.tofix.json >overlaphighways-major.csv
+```
+### Crossing Highways
 
 ```
-output : peru.csv ,Format: https://github.com/osmlab/to-fix/wiki/Task-sources#krakatoa
+osmlint2csv --conv=crossinghighways --type=major-major crossinghighways.tofix.json > crossing-highways-major.csv
+```
 
+### Inslands Highways
+
+```
+osmlint2csv --conv=islandsHighways --type=major insladshighways.tofix.json > inslands-highways-major.csv
 ```
