@@ -11,12 +11,14 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
+    "eslint": "^2.5.3",
+    "eslint-config-mourner": "^2.0.0",
     "log-interceptor": "^1.0.0",
     "tap-spec": "^4.1.1",
     "tape": "^4.4.0"
   },
   "scripts": {
-    "test": "tape test/test.js | tap-spec"
+    "test": "eslint src test converters/*/*.js && tape test/test.js | tap-spec"
   },
   "repository": {
     "type": "git",

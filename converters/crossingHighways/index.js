@@ -1,7 +1,5 @@
 'use strict';
-
 var fs = require('fs');
-var _ = require('underscore');
 var readline = require('readline');
 
 module.exports = function(inputFile, type, done) {
@@ -15,13 +13,12 @@ module.exports = function(inputFile, type, done) {
   console.log(header);
   rd.on('line', function(line) {
     var obj = JSON.parse(line);
-    var result = {};
     var features = obj.features;
     var coordinates = {};
     for (var i = 0; i < features.length; i++) {
       var val = features[i];
       if (coordinates[val.geometry.coordinates.join(',')] === undefined) {
-        if (val.geometry.type == 'Point') {
+        if (val.geometry.type === 'Point') {
           if (val.properties._type === type) {
             var row = val.properties._fromWay + ',POINT(' + val.geometry.coordinates.join(' ') + ')';
             console.log(row);
