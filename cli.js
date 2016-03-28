@@ -1,7 +1,5 @@
 #!/usr/bin/env node
-
 'use strict';
-
 var fs = require('fs');
 var argv = require('minimist')(process.argv.slice(2));
 var path = require('path');
@@ -24,5 +22,4 @@ var usage = function() {
     return usage();
   }
   validator(argv._[0], argv.type, function() {});
-
 })();
