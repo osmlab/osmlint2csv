@@ -4,7 +4,7 @@ var readline = require('readline');
 var turf = require('turf');
 
 module.exports = function(inputFile, type, done) {
-  var tolerance = 0.0002;
+  var tolerance = 0.0005;
   var rd = readline.createInterface({
     input: fs.createReadStream(inputFile),
     output: process.stdout,
