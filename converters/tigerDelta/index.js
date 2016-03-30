@@ -17,12 +17,11 @@ module.exports = function(inputFile, type, done) {
     for (var i = 0; i < features.length; i++) {
       var val = features[i];
       var coors = val.geometry.coordinates;
-      for (var j = 0; j < coors.length; j++) {
-        var line = coors[j].map(function(val) {
-          return val.join(' ');
-        }).join(',');
-        console.log('"LINESTRING(' + line + ')"');
-      }
+      var row = coors.map(function(val) {
+        return val.join(' ');
+      }).join(',');
+      console.log('"LINESTRING(' + row + ')"');
+
     }
   }).on('close', function() {
     done();
