@@ -44,7 +44,7 @@ tape('Generator CSV file islandsHighways', function(assert) {
   logInterceptor();
   convert.islandshighways(islandshighwaysJson, 'major', function() {
     var logs = logInterceptor.end();
-    assert.equal(logs[1], '395848046,"LINESTRING (-80.6451416015625 -5.2394106092951205,-80.6447821855545 -5.239116798976596,-80.64422965049744 -5.238657386201595)"\n', 'First row of islandsHighways,ok');
+    assert.equal(logs[1], '395848046,"LINESTRING(-80.6451416015625 -5.2394106092951205,-80.6447821855545 -5.239116798976596,-80.64422965049744 -5.238657386201595)"\n', 'First row of islandsHighways,ok');
     assert.end();
   });
 });
