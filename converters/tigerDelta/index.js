@@ -21,7 +21,7 @@ module.exports = function(inputFile, type, done) {
       // var val = features[i];
       var coors = val.geometry.coordinates;
       var row = coors.map(function(val) {
-        return val.reverse().join(' ');
+        return val.join(' ');
       }).join(',');
       console.log('"LINESTRING(' + row + ')"');
 
