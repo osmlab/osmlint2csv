@@ -22,7 +22,7 @@ module.exports = function(inputFile, type, done) {
         for (var j = 0; j < coors.length; j++) {
           row.push(coors[j].join(' '));
         }
-        row = 'LINESTRING (' + row.join(',') + ')';
+        row = 'LINESTRING(' + row.join(',') + ')';
         row = val.properties._osm_way_id + ',"' + row + '"';
         console.log(row);
       }
