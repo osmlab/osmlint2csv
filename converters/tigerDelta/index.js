@@ -10,7 +10,7 @@ module.exports = function(inputFile, type, done) {
     output: process.stdout,
     terminal: false
   });
-  var header = 'geom';
+  var header = 'way,geom';
   //Print CSV header
   console.log(header);
   rd.on('line', function(line) {
@@ -23,7 +23,7 @@ module.exports = function(inputFile, type, done) {
       var row = coors.map(function(val) {
         return val.join(' ');
       }).join(',');
-      console.log('"LINESTRING(' + row + ')"');
+      console.log('0,"LINESTRING(' + row + ')"');
 
     }
   }).on('close', function() {
