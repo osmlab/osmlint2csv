@@ -5,6 +5,7 @@ var _ = require('underscore');
 var readline = require('readline');
 
 module.exports = function(inputFile, type, done) {
+  var types = type.split(',');
   var rd = readline.createInterface({
     input: fs.createReadStream(inputFile),
     output: process.stdout,
@@ -19,7 +20,7 @@ module.exports = function(inputFile, type, done) {
     var features = obj.features;
     for (var i = 0; i < features.length; i++) {
       var val = features[i];
-      if (val.geometry.type === 'Point' && val.properties._type === type) {
+      if (val.geometry.type === 'Point' && types.indexOf(val.properties._type) > -1) {
         var id = val.properties._fromWay + ',' + val.properties._toWay;
         if (!result[id]) {
           result[id] = [val.geometry.coordinates];
