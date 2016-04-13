@@ -3,6 +3,7 @@ var fs = require('fs');
 var readline = require('readline');
 
 module.exports = function(inputFile, type, done) {
+  var arrType = type.split(',');
   var rd = readline.createInterface({
     input: fs.createReadStream(inputFile),
     output: process.stdout,
@@ -19,7 +20,7 @@ module.exports = function(inputFile, type, done) {
       var val = features[i];
       if (coordinates[val.geometry.coordinates.join(',')] === undefined) {
         if (val.geometry.type === 'Point') {
-          if (val.properties._type === type) {
+          if (arrType.indexOf(val.properties._type) > -1) {
             var row = val.properties._fromWay + ',POINT(' + val.geometry.coordinates.join(' ') + ')';
             console.log(row);
           }
