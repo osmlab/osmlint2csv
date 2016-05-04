@@ -1,6 +1,6 @@
 ## Execute 
 
 ```
-osmlint2csv --conv=impossibleoneways --type=major,minor impossibleoneways.tofix.js > impossibleoneways.csv
+osmlint2csv --conv=impossibleoneways --type=major impossibleoneways.tofix.json > impossibleoneways.csv
 
 ```

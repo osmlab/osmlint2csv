@@ -3,6 +3,7 @@ var fs = require('fs');
 var readline = require('readline');
 
 module.exports = function(inputFile, type, done) {
+  var types = type.split(',');
   var rd = readline.createInterface({
     input: fs.createReadStream(inputFile),
     output: process.stdout,
@@ -16,7 +17,7 @@ module.exports = function(inputFile, type, done) {
     var features = obj.features;
     for (var i = 0; i < features.length; i++) {
       var val = features[i];
-      if (val.geometry.type === 'LineString' && val.properties._type === type) {
+      if (val.geometry.type === 'LineString' && types.indexOf(val.properties._type) > -1) {
         var coors = val.geometry.coordinates;
         var row = [];
         for (var j = 0; j < coors.length; j++) {
