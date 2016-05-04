@@ -19,11 +19,9 @@ module.exports = function(inputFile, type, done) {
     for (var i = 0; i < features.length; i++) {
       var val = features[i];
       if (coordinates[val.geometry.coordinates.join(',')] === undefined) {
-        if (val.geometry.type === 'Point') {
-          if (types.indexOf(val.properties._type) > -1) {
-            var row = val.properties._fromWay + ',POINT(' + val.geometry.coordinates.join(' ') + ')';
-            console.log(row);
-          }
+        if (val.geometry.type === 'Point' && types.indexOf(val.properties._type) > -1) {
+          var row = val.properties._fromWay + ',POINT(' + val.geometry.coordinates.join(' ') + ')';
+          console.log(row);
         }
         coordinates[val.geometry.coordinates.join(',')] = val.geometry.coordinates.join(',');
       }
