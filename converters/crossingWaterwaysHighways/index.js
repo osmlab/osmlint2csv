@@ -20,7 +20,7 @@ module.exports = function(inputFile, type, done) {
       var val = features[i];
       if (coordinates[val.geometry.coordinates.join(',')] === undefined) {
         if (val.geometry.type === 'Point' && types.indexOf(val.properties._type) > -1) {
-          var row = val.properties._idHighway + ',POINT(' + val.geometry.coordinates.join(' ') + ')';
+          var row = val.properties._fromWay + ',POINT(' + val.geometry.coordinates.join(' ') + ')';
           console.log(row);
         }
         coordinates[val.geometry.coordinates.join(',')] = val.geometry.coordinates.join(',');
