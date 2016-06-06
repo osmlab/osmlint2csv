@@ -23,7 +23,15 @@ module.exports = function(inputFile, type, done) {
       if (val.geometry.type === 'LineString' && types.indexOf(val.properties._type) > -1) {
         var id = val.properties['@id'];
         var coor = val.geometry.coordinates;
-        var row = id + ',"MULTIPOINT(' + coor[0].join(' ') + ',' + coor[coor.length - 1].join(' ') + ')"';
+        var strCoor = '';
+        for (var k = 0; k < coor.length; k++) {
+          if (k === 0) {
+            strCoor = coor[k].join(' ');
+          } else {
+            strCoor = strCoor + ',' + coor[k].join(' ');
+          }
+        }
+        var row = id + ',"MULTIPOINT(' + strCoor + ')"';
         console.log(row);
       }
     }
