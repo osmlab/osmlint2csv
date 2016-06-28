@@ -1,7 +1,6 @@
 'use strict';
 
 var fs = require('fs');
-var _ = require('underscore');
 var readline = require('readline');
 
 module.exports = function(inputFile, type, done) {
@@ -16,7 +15,6 @@ module.exports = function(inputFile, type, done) {
   console.log(header);
   rd.on('line', function(line) {
     var obj = JSON.parse(line);
-    var result = {};
     var features = obj.features;
     for (var i = 0; i < features.length; i++) {
       var val = features[i];
