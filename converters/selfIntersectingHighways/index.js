@@ -15,18 +15,24 @@ module.exports = function(inputFile, type, done) {
   rd.on('line', function(line) {
     var obj = JSON.parse(line);
     var features = obj.features;
+    var objCoords = {};
     for (var i = 0; i < features.length; i++) {
       var val = features[i];
-      if (val.geometry.type === 'LineString' && types.indexOf(val.properties._type) > -1) {
-        var coors = val.geometry.coordinates;
-        var row = [];
-        for (var j = 0; j < coors.length; j++) {
-          row.push(coors[j].join(' '));
+      if (val.geometry.type === 'Point' && types.indexOf(val.properties._type) > -1) {
+        var key = val.properties._fromWay;
+        if (objCoords[key]) {
+          objCoords[key].push(val.geometry.coordinates);
+        } else {
+          objCoords[key] = [val.geometry.coordinates];
         }
-        row = 'LINESTRING(' + row.join(',') + ')';
-        row = val.properties['@id'] + ',"' + row + '"';
-        console.log(row);
       }
+    }
+    for (var k in objCoords) {
+      var mtltp = objCoords[k].map(function(c) {
+        return c.join(' ');
+      }).join(',');
+      var row = k + ',"MULTIPOINT(' + mtltp + ')"';
+      console.log(row);
     }
   }).on('close', function() {
     done();
