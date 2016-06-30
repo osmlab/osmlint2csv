@@ -1,6 +1,6 @@
 ## Execute 
 
 ```
-osmlint2csv --conv=missingoneway --type=major missingoneway.tofix.json > missingoneway.csv
+osmlint2csv --conv=missingoneways --type=major missingoneway.tofix.json > missingoneway.csv
 
 ```
