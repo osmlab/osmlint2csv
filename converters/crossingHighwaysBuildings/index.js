@@ -15,16 +15,24 @@ module.exports = function(inputFile, type, done) {
   rd.on('line', function(line) {
     var obj = JSON.parse(line);
     var features = obj.features;
-    var coordinates = {};
+    var objCoords = {};
     for (var i = 0; i < features.length; i++) {
       var val = features[i];
-      if (val.geometry.type === 'Point' && types.indexOf(val.properties._type) > -1) {
-        if (!coordinates[val.geometry.coordinates.join(',')]) {
-          var row = val.properties._fromWay + ',POINT(' + val.geometry.coordinates.join(' ') + ')';
-          console.log(row);
+      if ((val.geometry.type === 'Point' || val.geometry.type === 'MultiPoint') && types.indexOf(val.properties._type) > -1) {
+        var key = val.properties._fromWay;
+        if (objCoords[key]) {
+          objCoords[key].push(val.geometry.coordinates);
+        } else {
+          objCoords[key] = [val.geometry.coordinates];
         }
-        coordinates[val.geometry.coordinates.join(',')] = true;
       }
+    }
+    for (var k in objCoords) {
+      var mtltp = objCoords[k].map(function(c) {
+        return c.join(' ');
+      }).join(',');
+      var row = k + ',"MULTIPOINT(' + mtltp + ')"';
+      console.log(row);
     }
   }).on('close', function() {
     done();
