@@ -1,5 +1,7 @@
 'use strict';
+
 var fs = require('fs');
+var _ = require('underscore');
 var readline = require('readline');
 
 module.exports = function(inputFile, type, done) {
@@ -14,26 +16,43 @@ module.exports = function(inputFile, type, done) {
   console.log(header);
   rd.on('line', function(line) {
     var obj = JSON.parse(line);
+    var result = {};
     var features = obj.features;
-    var objCoords = {};
     for (var i = 0; i < features.length; i++) {
       var val = features[i];
-      if ((val.geometry.type === 'Point' || val.geometry.type === 'MultiPoint') && types.indexOf(val.properties._type) > -1) {
-        var key = val.properties._fromWay;
-        if (objCoords[key]) {
-          objCoords[key].push(val.geometry.coordinates);
-        } else {
-          objCoords[key] = [val.geometry.coordinates];
+      var id = val.properties._fromWay;
+      var row;
+      if (types.indexOf(val.properties._type) > -1) {
+        if (val.geometry.type === 'MultiPoint') {
+          var coors = val.geometry.coordinates;
+          for (var z = 0; z < coors.length; z++) {
+            if (result[id]) {
+              result[id].push(coors[z]);
+            } else {
+              result[id] = [coors[z]];
+            }
+          }
+        } else if (val.geometry.type === 'Point') {
+          if (result[id]) {
+            result[id].push(val.geometry.coordinates);
+          } else {
+            result[id] = [val.geometry.coordinates];
+         }
         }
       }
     }
-    for (var k in objCoords) {
-      var mtltp = objCoords[k].map(function(c) {
-        return c.join(' ');
-      }).join(',');
-      var row = k + ',"MULTIPOINT(' + mtltp + ')"';
+    _.each(result, function(v, key) {
+      var row = 'MULTIPOINT(';
+      for (var i = 0; i < v.length; i++) {
+        if ((v.length - 1) === i) {
+          row += v[i].join(' ');
+        } else {
+          row += v[i].join(' ') + ',';
+        }
+      }
+      row = key + ',"' + row + ')"';
       console.log(row);
-    }
+    });
   }).on('close', function() {
     done();
   });
